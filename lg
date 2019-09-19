@@ -1,0 +1,148 @@
+package usolistas;
+
+
+public class UsoListas {
+
+    
+    public static void main(String[] args) {
+        ListaLigada lista = new ListaLigada();
+        lista.adicionaNoComeco("Jose");
+        lista.adiciona("Maria");
+        lista.adiciona("Ana");
+        lista.adicionaNoComeco("Rafael");
+        lista.adiciona("Marcos");
+        
+        
+        System.out.println(lista.toString());
+    }
+    
+}
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+package usolistas;
+
+public class Celula {
+
+    private Object elemento;
+    private Celula proximo;
+
+    public Celula(Object elemento, Celula proximo) {
+        this.elemento = elemento;
+        this.proximo = proximo;
+    }
+
+    public Celula(Object elemento) {
+        this.elemento = elemento;
+    }
+
+    public Object getElemento() {
+        return elemento;
+    }
+
+    public void setElemento(Object elemento) {
+        this.elemento = elemento;
+    }
+
+    public Celula getProximo() {
+        return proximo;
+    }
+
+    public void setProximo(Celula proximo) {
+        this.proximo = proximo;
+    }
+
+    }
+
+-------------------------------------------------------------------------------------------------------------------------------------
+package usolistas;
+
+
+public class ListaLigada {
+
+    private Celula primeira;
+    private Celula ultima;
+    private int tamanho;
+
+    public ListaLigada() {
+    }
+
+    public Celula getPrimeira() {
+        return primeira;
+    }
+
+    public void setPrimeira(Celula primeira) {
+        this.primeira = primeira;
+    }
+
+    public Celula getUltima() {
+        return ultima;
+    }
+
+    public void setUltima(Celula ultima) {
+        this.ultima = ultima;
+    }
+
+    public int getTamanho() {
+        return tamanho;
+    }
+
+    public void setTamanho(int tamanho) {
+        this.tamanho = tamanho;
+    }
+
+    public void adicionaNoComeco(Object elemento) {
+        Celula nova = new Celula(elemento, this.primeira);
+        this.primeira = nova;
+        if (this.tamanho == 0) {
+
+            this.ultima = this.primeira;
+        }
+        this.tamanho++;
+    }
+
+    public void adiciona(Object elemento) {
+        Celula nova = new Celula(elemento);
+        this.ultima.setProximo(nova);
+        this.ultima = nova;
+        this.tamanho++;
+    }
+
+    public void removeDoComeco() {
+        this.primeira = this.primeira.getProximo();
+        this.tamanho--;
+
+        if (this.tamanho == 0) {
+            this.ultima = null;
+        }
+    }
+    
+    
+
+    public String toString() {
+
+        
+        if (this.tamanho == 0) {
+            return "[]";
+        }
+
+        StringBuilder builder = new StringBuilder("[");
+        Celula atual = primeira;
+
+        
+        for (int i = 0; i < this.tamanho - 1; i++) {
+            builder.append(atual.getElemento());
+            builder.append(", ");
+            atual = atual.getProximo();
+        }
+
+        
+        builder.append(atual.getElemento());
+        builder.append("]");
+
+        return builder.toString();
+    }
+
+    
+}
